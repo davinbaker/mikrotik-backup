@@ -6,7 +6,7 @@ services:
 
     environment:
       # ── MikroTik ─────────────────────────────────────────────
-      MIKROTIK_HOST: "192.168.88.1"        # ← your router IP
+      MIKROTIK_HOST: "192.168.1.1"
       MIKROTIK_USER: "rclone-backup"
       MIKROTIK_PORT: "22"
       SSH_KEY_PATH: "/secrets/mikrotik_id_rsa"
