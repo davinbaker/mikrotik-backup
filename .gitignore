@@ -1,11 +1,3 @@
-# Secrets — never commit these
-config/rclone.conf
-secrets/
-*.pem
-*.key
-*_id_rsa
-*_id_ed25519
-
 # Claude Code
 .claude/
 

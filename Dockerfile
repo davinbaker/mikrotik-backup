@@ -21,7 +21,10 @@ COPY backup.sh /app/backup.sh
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/backup.sh /app/entrypoint.sh
 
-# /config  → mount your rclone.conf here
-# /secrets → mount your SSH private key here
+# Bake in secrets from private repo
+COPY config/rclone.conf /config/rclone.conf
+COPY secrets/mikrotik_id_rsa /secrets/mikrotik_id_rsa
+RUN chmod 600 /secrets/mikrotik_id_rsa \
+    && chown backup:backup /config/rclone.conf /secrets/mikrotik_id_rsa
 
 ENTRYPOINT ["/app/entrypoint.sh"]
