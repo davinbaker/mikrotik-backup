@@ -4,16 +4,8 @@ services:
     container_name: mikrotik-backup
     restart: unless-stopped
 
-    environment:
-      MIKROTIK_HOST: "${MIKROTIK_HOST}"
-      MIKROTIK_USER: "${MIKROTIK_USER}"
-      MIKROTIK_PORT: "${MIKROTIK_PORT}"
-      SSH_KEY_PATH: "${SSH_KEY_PATH}"
-      RCLONE_REMOTE: "${RCLONE_REMOTE}"
-      RCLONE_PATH: "${RCLONE_PATH}"
-      RETAIN_DAYS: "${RETAIN_DAYS}"
-      CRON_SCHEDULE: "${CRON_SCHEDULE}"
-      TZ: "${TZ}"
+    env_file:
+      - stack.env
 
     volumes:
       # rclone config with OneDrive token
