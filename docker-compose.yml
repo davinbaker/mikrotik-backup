@@ -1,0 +1,37 @@
+services:
+  mikrotik-backup:
+    build: .
+    container_name: mikrotik-backup
+    restart: unless-stopped
+
+    environment:
+      # ── MikroTik ─────────────────────────────────────────────
+      MIKROTIK_HOST: "192.168.88.1"        # ← your router IP
+      MIKROTIK_USER: "rclone-backup"
+      MIKROTIK_PORT: "22"
+      SSH_KEY_PATH: "/secrets/mikrotik_id_rsa"
+
+      # ── rclone / OneDrive ────────────────────────────────────
+      RCLONE_REMOTE: "onedrive"            # ← must match name in rclone.conf
+      RCLONE_PATH: "MikroTik-Backups"      # folder path in OneDrive
+
+      # ── Retention ────────────────────────────────────────────
+      RETAIN_DAYS: "30"
+
+      # ── Schedule (cron syntax) ───────────────────────────────
+      CRON_SCHEDULE: "0 2 * * *"           # 2 AM every day
+
+      # ── Timezone ─────────────────────────────────────────────
+      TZ: "America/Denver"                 # ← your timezone
+
+    volumes:
+      # rclone config with OneDrive token
+      - ./config/rclone.conf:/config/rclone.conf:ro
+      # SSH private key for MikroTik
+      - ./secrets/mikrotik_id_rsa:/secrets/mikrotik_id_rsa:ro
+
+    # Optional: resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 128m
