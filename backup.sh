@@ -14,6 +14,13 @@ RETAIN_DAYS="${RETAIN_DAYS:-30}"
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 BACKUP_DIR="/tmp/mikrotik-backup"
 BACKUP_NAME="mikrotik_${MIKROTIK_HOST}_${TIMESTAMP}"
+
+# Copy SSH key to temp location with correct permissions (mounted file may be 0755)
+TEMP_KEY="/tmp/mikrotik_id_rsa_$$"
+cp "${SSH_KEY_PATH}" "${TEMP_KEY}"
+chmod 600 "${TEMP_KEY}"
+trap 'rm -f "${TEMP_KEY}"' EXIT
+SSH_KEY_PATH="${TEMP_KEY}"
 # ─────────────────────────────────────────────────────────────────────────────
 
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*"; }
