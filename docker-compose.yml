@@ -26,9 +26,9 @@ services:
 
     volumes:
       # rclone config with OneDrive token
-      - ./config/rclone.conf:/config/rclone.conf:ro
+      - /opt/mikrotik-backup/config/rclone.conf:/config/rclone.conf:ro
       # SSH private key for MikroTik
-      - ./secrets/mikrotik_id_rsa:/secrets/mikrotik_id_rsa:ro
+      - /opt/mikrotik-backup/secrets/mikrotik_id_rsa:/secrets/mikrotik_id_rsa:ro
 
     # Optional: resource limits
     deploy:
