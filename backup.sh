@@ -24,7 +24,7 @@ mkdir -p "$BACKUP_DIR"
 log "Connecting to MikroTik at ${MIKROTIK_HOST}:${MIKROTIK_PORT} as ${MIKROTIK_USER}"
 
 SSH_OPTS="-i ${SSH_KEY_PATH} -p ${MIKROTIK_PORT} -o StrictHostKeyChecking=no -o ConnectTimeout=15"
-SCP_OPTS="-i ${SSH_KEY_PATH} -P ${MIKROTIK_PORT} -o StrictHostKeyChecking=no -o ConnectTimeout=15 -O"
+SCP_OPTS="-i ${SSH_KEY_PATH} -P ${MIKROTIK_PORT} -o StrictHostKeyChecking=no -o ConnectTimeout=15"
 
 # 1. Create a .backup file on the router then download it
 log "Creating .backup on router..."
