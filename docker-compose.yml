@@ -2,7 +2,7 @@ services:
   mikrotik-backup:
     build: .
     container_name: mikrotik-backup
-    restart: unless-stopped
+    restart: "no"
 
     env_file:
       - stack.env
