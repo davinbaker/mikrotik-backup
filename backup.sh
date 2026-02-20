@@ -24,6 +24,7 @@ mkdir -p "$BACKUP_DIR"
 log "Connecting to MikroTik at ${MIKROTIK_HOST}:${MIKROTIK_PORT} as ${MIKROTIK_USER}"
 
 SSH_OPTS="-i ${SSH_KEY_PATH} -p ${MIKROTIK_PORT} -o StrictHostKeyChecking=no -o ConnectTimeout=15"
+SCP_OPTS="${SSH_OPTS} -O"  # -O forces legacy SCP protocol; MikroTik's SFTP is incompatible with OpenSSH 9+
 
 # 1. Create a .backup file on the router then download it
 log "Creating .backup on router..."
@@ -33,7 +34,7 @@ ssh $SSH_OPTS "${MIKROTIK_USER}@${MIKROTIK_HOST}" \
 sleep 3  # give router a moment to finish writing
 
 log "Downloading .backup file..."
-scp $SSH_OPTS \
+scp $SCP_OPTS \
     "${MIKROTIK_USER}@${MIKROTIK_HOST}:${BACKUP_NAME}.backup" \
     "${BACKUP_DIR}/${BACKUP_NAME}.backup"
 
