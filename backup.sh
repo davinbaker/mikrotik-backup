@@ -34,7 +34,7 @@ sleep 3  # give router a moment to finish writing
 
 log "Downloading .backup file..."
 scp $SSH_OPTS \
-    "${MIKROTIK_USER}@${MIKROTIK_HOST}:/${BACKUP_NAME}.backup" \
+    "${MIKROTIK_USER}@${MIKROTIK_HOST}:${BACKUP_NAME}.backup" \
     "${BACKUP_DIR}/${BACKUP_NAME}.backup"
 
 # 2. Export plaintext config (human-readable)
